@@ -13,21 +13,22 @@
 ```
 ./data
 ├── assets
-│   └── basket
+│     └── basket
 │       └── basket.usd
-├── checkpoint
-│   ├── contact_grasp_ckpt
-│   │   └── ckpt-iter-60000_gc6d.pth
-│   └── maskrcnn_ckpt
-│       └── maskrcnn_trained_model_refined.pth
-└── ycb_usd
-    └── ycb
-        └── 006_mustard_bottle
-            ├── config.yaml
-            ├── final.usd
-            └── textures
-                └── texture_map.png
-        └── ...
+│     └── ycb_usd
+│        └── ycb
+│            └── 006_mustard_bottle
+│                ├── config.yaml
+│                ├── final.usd
+│                └── textures
+│                    └── texture_map.png
+│            └── ...
+└── checkpoint
+    ├── contact_grasp_ckpt
+    │   └── ckpt-iter-60000_gc6d.pth
+    └── maskrcnn_ckpt
+       └── maskrcnn_trained_model_refined.pth
+
 ```
 ---
 ### 참고 repo
