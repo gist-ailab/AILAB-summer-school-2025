@@ -1,0 +1,82 @@
+services:
+  isaac-lab-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: isaac-lab-dev:v2.1.0
+    container_name: isaac-lab-dev-container
+    
+    # GPU support
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      # X11/GUI 환경 변수 (강화됨)
+      - DISPLAY=${DISPLAY}
+      - XAUTH=/tmp/.docker.xauth
+      - QT_X11_NO_MITSHM=1
+      - QT_GRAPHICSSYSTEM=native
+      - LIBGL_ALWAYS_INDIRECT=0
+      - LIBGL_ALWAYS_SOFTWARE=0
+      - __GL_SYNC_TO_VBLANK=0
+      - __GL_MaxFramesAllowed=1
+      - MESA_GL_VERSION_OVERRIDE=4.1
+      # 한글 환경
+      - LANG=ko_KR.UTF-8
+      - LANGUAGE=ko_KR:ko
+      - LC_ALL=ko_KR.UTF-8
+    
+    # Port mapping
+    ports:
+      - "2222:22"    # SSH for Remote-SSH connection
+    
+    # Network and IPC
+    network_mode: host
+    ipc: host
+    
+    # Security settings for GUI apps
+    privileged: true
+    
+    # Volumes
+    volumes:
+      # Mount the entire project root to /workspace
+      - ../:/workspace:rw
+      # X11 socket for GUI (Isaac Sim)
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      # GPU device access
+      - /dev/dri:/dev/dri:rw
+      # Persist Isaac Lab installation
+      - isaac-lab-install:/opt/IsaacLab
+      # 추가 시스템 접근 (GUI 안정성)
+      - /etc/machine-id:/etc/machine-id:ro
+      - /run/user:/run/user:rw
+    
+    # Devices for GPU acceleration
+    devices:
+      - /dev/dri:/dev/dri
+    
+    # Keep container running
+    stdin_open: true
+    tty: true
+    
+    # Working directory
+    working_dir: /workspace
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Start with enhanced startup script
+    command: /startup.sh
+    
+    # 추가 Docker 설정
+    cap_add:
+      - SYS_PTRACE  # 디버깅용
+    security_opt:
+      - seccomp:unconfined  # GUI 앱 실행을 위한 보안 완화
+  
+
+# Named volumes for data persistence
+volumes:
+  isaac-lab-install:
+    driver: local

@@ -1,0 +1,233 @@
+{
+    "folders": [
+        {
+            "name": "🏠 Project Root",
+            "path": "."
+        },
+        {
+            "name": "🔬 Isaac Lab",
+            "path": "/opt/IsaacLab"
+        }
+    ],
+    "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.analysis.extraPaths": [
+            "/opt/IsaacLab/source",
+            "/workspace",
+            "/workspace/cgnet",
+            "/workspace/graspnetAPI",
+            "/workspace/Pointnet_Pointnet2_pytorch"
+        ],
+        "python.analysis.autoImportCompletions": true,
+        "python.analysis.completeFunctionParens": true,
+        "python.formatting.provider": "black",
+        "python.formatting.blackArgs": ["--line-length", "88"],
+        "python.linting.enabled": true,
+        "python.linting.flake8Enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.linting.lintOnSave": true,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.rulers": [88],
+        "editor.semanticHighlighting.enabled": true,
+        "files.associations": {
+            "*.py": "python",
+            "*.pyx": "python",
+            "*.pyi": "python"
+        },
+        "terminal.integrated.cwd": "/workspace"
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.black-formatter",
+            "ms-python.flake8",
+            "ms-python.pylint", 
+            "ms-toolsai.jupyter",
+            "ms-vscode.cmake-tools",
+            "ms-vscode.cpptools",
+            "eamodio.gitlens",
+            "PKief.material-icon-theme",
+            "ms-python.debugpy"
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "🚀 Python: Current File",
+                "type": "python",
+                "request": "launch",
+                "program": "${file}",
+                "console": "integratedTerminal",
+                "cwd": "/workspace",
+                "env": {
+                    "PYTHONPATH": "/opt/IsaacLab/source:/workspace",
+                    "ISAACLAB_PATH": "/opt/IsaacLab"
+                }
+            },
+            {
+                "name": "🔬 Isaac Sim: Current File",
+                "type": "python",
+                "request": "launch",
+                "program": "${file}",
+                "console": "integratedTerminal",
+                "cwd": "/workspace",
+                "python": "/usr/bin/python3",
+                "env": {
+                    "PYTHONPATH": "/opt/IsaacLab/source:/workspace",
+                    "ISAACLAB_PATH": "/opt/IsaacLab",
+                    "DISPLAY": "${env:DISPLAY}"
+                },
+                "args": []
+            },
+            {
+                "name": "🎯 Grasp Object",
+                "type": "python",
+                "request": "launch",
+                "program": "${workspaceFolder}/grasp_object.py",
+                "console": "integratedTerminal",
+                "cwd": "/workspace",
+                "env": {
+                    "PYTHONPATH": "/opt/IsaacLab/source:/workspace",
+                    "ISAACLAB_PATH": "/opt/IsaacLab"
+                }
+            },
+            {
+                "name": "🎯 Grasp Object State Machine",
+                "type": "python",
+                "request": "launch",
+                "program": "${workspaceFolder}/grasp_object_statemachine.py",
+                "console": "integratedTerminal",
+                "cwd": "/workspace",
+                "env": {
+                    "PYTHONPATH": "/opt/IsaacLab/source:/workspace",
+                    "ISAACLAB_PATH": "/opt/IsaacLab"
+                }
+            },
+            {
+                "name": "🔬 Check Environment",
+                "type": "python",
+                "request": "launch",
+                "program": "${workspaceFolder}/check_env.py",
+                "console": "integratedTerminal",
+                "cwd": "/workspace",
+                "env": {
+                    "PYTHONPATH": "/opt/IsaacLab/source:/workspace",
+                    "ISAACLAB_PATH": "/opt/IsaacLab"
+                }
+            }
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "🔧 Install Isaac Lab",
+                "type": "shell",
+                "command": "cd /opt/IsaacLab && ./isaaclab.sh --install",
+                "group": "build",
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "shared",
+                    "showReuseMessage": true
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "🧪 Check Environment",
+                "type": "shell",
+                "command": "python3",
+                "args": ["check_env.py"],
+                "group": "test",
+                "options": {
+                    "cwd": "/workspace"
+                },
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "shared"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "⚙️ Set Environment",
+                "type": "shell",
+                "command": "python3",
+                "args": ["set_env.py"],
+                "group": "build",
+                "options": {
+                    "cwd": "/workspace"
+                },
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "shared"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "🎮 Run Isaac Sim Demo",
+                "type": "shell",
+                "command": "python",
+                "args": ["-m", "isaacsim.python.kit", "/opt/IsaacLab/source/standalone/demos/arms.py"],
+                "group": "test",
+                "options": {
+                    "cwd": "/workspace",
+                    "env": {
+                        "DISPLAY": "${env:DISPLAY}",
+                        "PYTHONPATH": "/opt/IsaacLab/source:/workspace",
+                        "ISAACLAB_PATH": "/opt/IsaacLab"
+                    }
+                },
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "shared"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "🚀 Run Grasp Object",
+                "type": "shell",
+                "command": "python3",
+                "args": ["grasp_object.py"],
+                "group": "test",
+                "options": {
+                    "cwd": "/workspace",
+                    "env": {
+                        "PYTHONPATH": "/opt/IsaacLab/source:/workspace",
+                        "ISAACLAB_PATH": "/opt/IsaacLab"
+                    }
+                },
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "shared"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "🔄 Restart Isaac Lab Environment",
+                "type": "shell",
+                "command": "source /opt/IsaacLab/isaaclab.sh",
+                "group": "build",
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "shared"
+                },
+                "problemMatcher": []
+            }
+        ]
+    }
+}
