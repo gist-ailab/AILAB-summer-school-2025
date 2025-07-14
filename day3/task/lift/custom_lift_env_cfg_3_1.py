@@ -85,7 +85,7 @@ class ObjectTableSceneCfg(InteractiveSceneCfg):
     # 5. 오브젝트 설정 (큐브)
     object_0 = RigidObjectCfg(
         prim_path="{ENV_REGEX_NS}/Object",
-        init_state=RigidObjectCfg.InitialStateCfg(pos=[0.4, 0, 0.6], rot=[1, 0, 0, 0]),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=[0.5, 0, 0.6], rot=[1, 0, 0, 0]),
         spawn=CustomUsdFileCfg(
             usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
             scale=(0.8, 0.8, 0.8),

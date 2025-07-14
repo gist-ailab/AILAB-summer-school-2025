@@ -149,15 +149,15 @@ def get_randomized_scene_cfg() -> tuple[type[InteractiveSceneCfg], list[str]]:
         # 객체의 초기 위치, 크기, 회전을 무작위로 결정
 
         # (예제 1) 테이블 위 X 좌표
-
+        pos_x =0.2
         # (예제 2) 테이블 위 Y 좌표
-
+        pos_y = 0.5
         # (예제 3) 공중에서 떨어뜨릴 Z 좌표 (테이블 높이 0.5 + 여유)
-
+        pos_z = 1
         # (예제 4) 객체 크기
-
+        random_scale = 1
         # (예제 5) Z축 기준 회전 각도 (라디안)
-
+        random_z_angle = 1.2
         ########################################################################
 
         z_axis_tensor = torch.tensor([0.0, 0.0, 1.0]) # Z축 벡터
@@ -193,7 +193,7 @@ def main():
     sim.set_camera_view([2.5, 2.5, 2.5], [0.0, 0.0, 0.0])
     
     # 생성된 데이터를 저장할 출력 디렉토리 생성
-    output_dir = os.path.join(os.getcwd(), "output_data")
+    output_dir = os.path.join(os.getcwd(), "data/output_data")
     os.makedirs(output_dir, exist_ok=True)
     print(f"[INFO]: Saving data to: {output_dir}")
     

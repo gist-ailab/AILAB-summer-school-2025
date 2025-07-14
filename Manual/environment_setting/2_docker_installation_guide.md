@@ -174,7 +174,7 @@ sudo docker run --rm --gpus "device=0" ubuntu:22.04 nvidia-smi
 2025 인공지능 여름학교 환경을 사전구성하여 docker 환경을 구축된 환경을 이용할 수 있습니다.
 ```bash
 #!/bin/bash
-docker pull ailabsummerschool2025/summerschool-2025
+docker pull ailabsummerschool2025/summerschool-2025:public
 ```
 Docker 컨테이너의 GUI를 호스트 머신에 접근가능하도록 X서버를 설정합니다. 
 ```
@@ -186,7 +186,10 @@ xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH_FILE nmerge -
 chmod 644 $XAUTH_FILE
 ```
 
-Pull 받은 이미지를 사용하여 컨테이너를 실행합니다
+Pull 받은 이미지를 사용하여 컨테이너를 실행합니다.
+
+원활한 환경 구성을 위해 docker run이 종료되면 컨테이너를 없애는 ```--rm``` 플래그가 들어있습니다.
+환경 내에서 코드를 수정, 코드가 삭제되길 원치 않는 경우 ```--rm``` 을 제거 하시고 실행 container가 유지됩니다.
 ```
 #!/bin/bash
 
@@ -201,7 +204,7 @@ docker run -it --rm \
     -v $(pwd):/workspace/host \
     --network=host \
     --shm-size=8g \
-    ailabsummerschool2025/summerschool-2025:latest
+    ailabsummerschool2025/summerschool-2025:public
 ```
 위 내용이 포함된 온라인 수강생을 위한 쉘 스크립트는 아래 명령어를 통해 실행가능합니다.
 ```
@@ -213,6 +216,15 @@ sudo bash online_run.sh
 #!/bin/bash
 sudo zsh /home/user/run_env.sh
 ```
+
+
+```--rm``` 플래그를 제거 하시어 기존에 container에 다시 접근하기를 원하실 때에는 
+```bash
+#!/bin/bash
+docker start -ai isaac-lab-container
+docker exec -it isaac-lab-container /bin/bash
+```
+커맨드를 통해 다시 접근이 가능합니다.
 
 ---
 

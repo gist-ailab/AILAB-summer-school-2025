@@ -24,7 +24,7 @@ ANNOTATIONS_FILE = os.path.join(DATA_ROOT, 'coco_annotations.json')
 # 총 클래스 수 = 실제 객체 클래스 수 + 1 (배경 클래스)
 NUM_CLASSES = 79  # 78 (ycb_object) + 1 (background)
 # 전체 데이터셋을 몇 번 반복하여 학습할지 결정하는 에포크(epoch) 수
-NUM_EPOCHS = 100
+NUM_EPOCHS = 20
 # 한 번의 반복(iteration)에서 모델이 처리할 이미지의 수
 BATCH_SIZE = 2
 # 학습률(learning rate). 경사 하강법에서 파라미터를 업데이트하는 보폭(step size)
